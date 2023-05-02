@@ -1,10 +1,13 @@
 import Application from "../Application.js";
+import ChessBoard from "./ChessBoard.js";
 
 export default class Chess extends Application{
 
     init()
     {
         this.initBoard();
+        this.board = new ChessBoard();
+        
     }
 
     initBoard()
