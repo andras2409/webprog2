@@ -113,6 +113,12 @@ body{
 .selected{
     background-color: #ffff00;
 }
+.chess-piece{
+    height: 80%;
+    width: 80%;
+    display: inline-block;
+    margin: 6px;
+}
 #statusText{
     display: flex;
     width: 100%;
