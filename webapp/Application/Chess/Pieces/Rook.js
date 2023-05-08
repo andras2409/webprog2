@@ -4,7 +4,14 @@ export default class Rook extends Pieces{
     initPiece(x,y,id){
         console.log(`Init ${id} ${x}, ${y}`);
         const img = document.createElement('img');
-        img.src = 'Application/Chess/src/test_piece.jpg';
+        if(x == 0 && (y == 0 || y == 7))
+        {
+            img.src = 'Application/Chess/src/bR.png';
+        }
+        if(x == 7 && (y == 0 || y == 7))
+        {
+            img.src = 'Application/Chess/src/wR.png';
+        }
         img.classList.add('chess-piece');
         img.classList.add('rook');
         img.id = id;

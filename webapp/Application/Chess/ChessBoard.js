@@ -2,7 +2,7 @@ import Bishop from "./Pieces/Bishop.js";
 import King from "./Pieces/King.js";
 import Knight from "./Pieces/Knight.js";
 import Pawn from "./Pieces/Pawn.js";
-import Quenn from "./Pieces/Queen.js";
+import Queen from "./Pieces/Queen.js";
 import Rook from "./Pieces/Rook.js";
 
 export default class ChessBoard{
@@ -16,7 +16,7 @@ export default class ChessBoard{
         this.BlackKnight2 = new Knight(0,6,'BlackKnight2');
         this.BlackBishop1 = new Bishop(0,2,'BlackBishop1');
         this.BlackBishop2 = new Bishop(0,5,'BlackBishop2');
-        this.BlackQueen = new Quenn(0,3,'BlackQueen');
+        this.BlackQueen = new Queen(0,3,'BlackQueen');
         this.BlackKing = new King(0,4,'BlackKing');
         this.BlackPawn1 = new Pawn(1,0,`BlackPawn1`);
         this.BlackPawn2 = new Pawn(1,1,`BlackPawn2`);
@@ -32,7 +32,7 @@ export default class ChessBoard{
         this.WhiteKnight2 = new Knight(7,6,'WhiteKnight2');
         this.WhiteBishop1 = new Bishop(7,2,'WhiteBishop1');
         this.WhiteBishop2 = new Bishop(7,5,'WhiteBishop2');
-        this.WhiteQueen = new Quenn(7,3,'WhiteQueen');
+        this.WhiteQueen = new Queen(7,3,'WhiteQueen');
         this.WhiteKing = new King(7,4,'WhiteKing');
         this.WhitePawn1 = new Pawn(6,0,`WhitePawn1`);
         this.WhitePawn2 = new Pawn(6,1,`WhitePawn2`);
@@ -53,9 +53,11 @@ export default class ChessBoard{
             cells.forEach(cell => cell.classList.remove('selected'));
             this.classList.add('selected')
             console.log(`selected ${this.children[0].id}`)
-        }else if(this.classList.contains('selected')){
+        }
+        else if(this.classList.contains('selected')){
             this.classList.remove('selected');
-        }else{
+        }
+        else{
             cells.forEach(cell => cell.classList.remove('selected'));
         }
     }

@@ -22,12 +22,22 @@ export default class Chess extends Application{
             board.appendChild(document.createElement('div'));
             board.lastChild.className = 'chess-board-row';
 
+            
+
             for(let j = 0; j < 8; j++)
             {
                 board.lastChild.appendChild(document.createElement('div'));
                 board.lastChild.lastChild.setAttribute('X', i);
                 board.lastChild.lastChild.setAttribute('Y', j);
                 board.lastChild.lastChild.setAttribute('pieceIndex', 0);
+                /*
+                if(i == 1){
+                    board.lastChild.lastChild.setAttribute('data', 'bP');
+                }
+                if(i == 6){
+                    board.lastChild.lastChild.setAttribute('data', 'wP');
+                }
+                */
 
                 if(i % 2 == 0)
                 {

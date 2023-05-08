@@ -4,7 +4,14 @@ export default class Knight extends Pieces{
     initPiece(x,y,id){
         console.log(`Init ${id} ${x}, ${y}`);
         const img = document.createElement('img');
-        img.src = 'Application/Chess/src/test_piece.jpg';
+        if(x == 0 && (y == 1 || y == 6))
+        {
+            img.src = 'Application/Chess/src/bN.png';
+        }
+        if(x == 7 && (y == 1 || y == 6))
+        {
+            img.src = 'Application/Chess/src/wN.png';
+        }
         img.classList.add('chess-piece');
         img.classList.add('knight');
         img.id = id;

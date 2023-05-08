@@ -4,7 +4,14 @@ export default class Pawn extends Pieces{
     initPiece(x,y,id){
         console.log(`Init ${id} ${x}, ${y}`);
         const img = document.createElement('img');
-        img.src = 'Application/Chess/src/test_piece.jpg';
+        if(x == 1)
+        {
+            img.src = 'Application/Chess/src/bP.png';
+        }
+        else{
+            img.src = 'Application/Chess/src/wP.png';
+        }
+        
         img.classList.add('chess-piece');
         img.classList.add('pawn');
         img.id = id;

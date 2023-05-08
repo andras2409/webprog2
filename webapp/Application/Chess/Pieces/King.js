@@ -4,7 +4,14 @@ export default class King extends Pieces{
     initPiece(x,y,id){
         console.log(`Init ${id} ${x}, ${y}`);
         const img = document.createElement('img');
-        img.src = 'Application/Chess/src/test_piece.jpg';
+        if(x == 0 && y == 4)
+        {
+            img.src = 'Application/Chess/src/bK.png';
+        }
+        if(x == 7 && y == 4)
+        {
+            img.src = 'Application/Chess/src/wK.png';
+        }
         img.classList.add('chess-piece');
         img.classList.add('king');
         img.id = id;

@@ -4,7 +4,14 @@ export default class Bishop extends Pieces{
     initPiece(x,y,id){
         console.log(`Init ${id} ${x}, ${y}`);
         const img = document.createElement('img');
-        img.src = 'Application/Chess/src/test_piece.jpg';
+        if(x == 7 && (y == 2 || y == 5))
+        {
+            img.src = 'Application/Chess/src/wB.png';
+        }
+        if(x == 0 &&(y == 2 || y == 5))
+        {
+            img.src = 'Application/Chess/src/bB.png';
+        }
         img.classList.add('chess-piece');
         img.classList.add('bishop');
         img.id = id;

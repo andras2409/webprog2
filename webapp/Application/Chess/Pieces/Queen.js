@@ -1,10 +1,17 @@
 import Pieces from "./Pieces.js";
 
-export default class Quenn extends Pieces{
+export default class Queen extends Pieces{
     initPiece(x,y,id){
         console.log(`Init ${id} ${x}, ${y}`);
         const img = document.createElement('img');
-        img.src = 'Application/Chess/src/test_piece.jpg';
+        if(x == 0 && y == 3)
+        {
+            img.src = 'Application/Chess/src/bQ.png';
+        }
+        if(x == 7 && y == 3)
+        {
+            img.src = 'Application/Chess/src/wQ.png';
+        }
         img.classList.add('chess-piece');
         img.classList.add('quenn');
         img.id = id;
