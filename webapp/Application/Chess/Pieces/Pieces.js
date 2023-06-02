@@ -6,4 +6,8 @@ export default class Pieces{
     initPiece(x,y,id){
         console.log(`Init piece ${x}, ${y}, ${id}`);
     }
+
+    move(x,y){
+        console.log(`Move piece to ${x}, ${y}`)
+    }
 }

@@ -7,8 +7,7 @@ export default class Chess extends Application{
     init()
     {
         this.initBoard();
-        this.board = new ChessBoard();
-        this.game = new ChessGame(this.board);
+        this.game = new ChessGame();
     }
 
     initBoard()
