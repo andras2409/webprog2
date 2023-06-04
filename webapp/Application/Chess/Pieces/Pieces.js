@@ -7,6 +7,12 @@ export default class Pieces{
         console.log(`Init piece ${x}, ${y}, ${id}`);
     }
 
+    highligth(matrix,cells){
+        console.log(matrix);
+        console.log(cells);
+        
+    }
+
     move(x,y){
         console.log(`Move piece to ${x}, ${y}`)
     }

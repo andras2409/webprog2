@@ -3,6 +3,9 @@ import Pieces from "./Pieces.js";
 export default class Bishop extends Pieces{
     initPiece(x,y,id){
         console.log(`Init ${id} ${x}, ${y}`);
+        this.x=x;
+        this.y=y;
+        this.id = id;
         this.img = document.createElement('img');
         if(x == 7 && (y == 2 || y == 5))
         {
@@ -24,5 +27,9 @@ export default class Bishop extends Pieces{
                 cells[i].appendChild(this.img);
             }
         }
+    }
+
+    move(x,y){
+        console.log(`Move ${this.id} to ${x}, ${y}`);
     }
 }

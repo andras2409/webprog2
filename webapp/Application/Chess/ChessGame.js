@@ -1,4 +1,3 @@
-import ChessBoard from "./ChessBoard.js";
 import Bishop from "./Pieces/Bishop.js";
 import King from "./Pieces/King.js";
 import Knight from "./Pieces/Knight.js";
@@ -6,13 +5,14 @@ import Pawn from "./Pieces/Pawn.js";
 import Pieces from "./Pieces/Pieces.js";
 import Queen from "./Pieces/Queen.js";
 import Rook from "./Pieces/Rook.js";
+import Placeholder from "./Pieces/Placeholder.js";
 
 export default class ChessGame{
     
-
-    selected;
+    
 
     constructor(){
+        this.selected = new Placeholder();
         this.initPieces();
         this.initMatrix();
         this.cells = document.querySelectorAll(".chess-cell");
@@ -70,19 +70,40 @@ export default class ChessGame{
         const cells = document.querySelectorAll(".chess-cell");
         const x = evt.currentTarget.parentElement.getAttribute("x");
         const y = evt.currentTarget.parentElement.getAttribute("y");
+        this.cells.forEach(cell => cell.classList.remove('selected'));
+        this.cells.forEach(cell => cell.classList.remove('highligthed'));
+        this.cells.forEach(cell => cell.classList.remove('strike'));
+        if(this.selected instanceof Placeholder){
         if((!evt.currentTarget.parentElement.classList.contains('selected')) && (evt.currentTarget.parentElement.children.length != 0)){
-            cells.forEach(cell => cell.classList.remove('selected'));
             evt.currentTarget.parentElement.classList.add('selected')
             this.selectedID=evt.currentTarget.id;
             this.getSelected(this.selectedID);
-            console.log(`selected ${this.selectedID}`);
+            console.log(`selected ${this.selected}`);
             console.log()
         }
         else if(evt.currentTarget.parentElement.classList.contains('selected')){
-            evt.currentTarget.parentElement.classList.remove('selected');
+            this.selectedID = "None";
+            this.getSelected(this.selectedID);
+            console.log(`selected ${this.selected}`);
+        }
+        
+        this.highligth();
         }
         else{
-            cells.forEach(cell => cell.classList.remove('selected'));
+            if((!evt.currentTarget.parentElement.classList.contains('selected')) && (evt.currentTarget.parentElement.children.length != 0)){
+                evt.currentTarget.parentElement.classList.add('selected')
+                this.selectedID=evt.currentTarget.id;
+                this.getSelected(this.selectedID);
+                console.log(`selected ${this.selected}`);
+                console.log()
+            }
+            else if(evt.currentTarget.parentElement.classList.contains('selected')){
+                this.selectedID = "None";
+                this.getSelected(this.selectedID);
+                console.log(`selected ${this.selected}`);
+            }
+            
+            this.highligth();
         }
         console.log(`x: ${x}, y: ${y}`);
         
@@ -91,27 +112,29 @@ export default class ChessGame{
     cellClicked(evt) {
         console.log(evt.currentTarget);
         console.log(this);
-        const cells = document.querySelectorAll(".chess-cell");
         const x = evt.currentTarget.getAttribute("x");
         const y = evt.currentTarget.getAttribute("y");
         
-        cells.forEach(cell => cell.classList.remove('selected'));
+        this.cells.forEach(cell => cell.classList.remove('selected'));
+        this.cells.forEach(cell => cell.classList.remove('highligthed'));
+        this.cells.forEach(cell => cell.classList.remove('strike'));
         this.selectedID = "None";
-        this.getSelected(this.selectedID);
-        console.log(`selected ${this.selectedID}`);
+        this.getSelected("None");
+        console.log(`selected ${this.selected}`);
         console.log(`x: ${x}, y: ${y}`);
         
     }
 
-    /*highligth(){
-        board.cells.forEach(this.img.parentElement => {
-            if(this.img.parentElement.classList.contains('selected')){
-                selectedID=this.img.parentElement.children[0].id;
-                console.log(this.selectedID);
-            }
-        });
-        console.log(this.selectedID);
-    }*/
+    highligth(){
+        if(this.selected instanceof Placeholder){
+            this.cells.forEach(cell => cell.classList.remove('highligthed'));
+        }
+        else{
+            this.selected.highligth(this.matrix,this.cells);
+        }
+        
+        
+    }
 
 
 
@@ -130,6 +153,7 @@ export default class ChessGame{
 
 
     initPieces(){
+        this.Placeholder = new Placeholder();
         this.BlackRook1 = new Rook(0,0,'BlackRook1');
         this.BlackRook2 = new Rook(0,7,'BlackRook2');
         this.BlackKnight1 = new Knight(0,1,'BlackKnight1');
@@ -165,8 +189,9 @@ export default class ChessGame{
     }
 
     getSelected(selectedID){
+        console.log(selectedID);
         switch(selectedID){
-            case "None": this.selected="None";
+            case "None": this.selected=this.Placeholder;break;
             
             case "BlackRook1":this.selected=this.BlackRook1;break;
             case "BlackRook2":this.selected=this.BlackRook2;break;

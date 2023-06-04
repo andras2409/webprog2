@@ -103,6 +103,7 @@ body{
 .chess-cell{
     width: 60px;
     height: 60px;
+    border: #000 solid 1px;
 }
 .white{
     background-color: rgba(255, 255, 255, 1);
@@ -118,6 +119,12 @@ body{
     width: 80%;
     display: inline-block;
     margin: 6px;
+}
+.highligthed{
+    background-color: #00ff00;
+}
+.strike{
+    background-color: #ff0000;
 }
 #statusText{
     display: flex;

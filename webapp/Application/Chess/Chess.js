@@ -1,5 +1,4 @@
 import Application from "../Application.js";
-import ChessBoard from "./ChessBoard.js";
 import ChessGame from "./ChessGame.js";
 
 export default class Chess extends Application{

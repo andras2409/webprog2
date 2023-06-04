@@ -3,6 +3,9 @@ import Pieces from "./Pieces.js";
 export default class King extends Pieces{
     initPiece(x,y,id){
         console.log(`Init ${id} ${x}, ${y}`);
+        this.x=x;
+        this.y=y;
+        this.id = id;
         this.img = document.createElement('img');
         if(x == 0 && y == 4)
         {
@@ -24,5 +27,9 @@ export default class King extends Pieces{
                 cells[i].appendChild(this.img);
             }
         }
+    }
+
+    move(x,y){
+        console.log(`Move ${this.id} to ${x}, ${y}`);
     }
 }
