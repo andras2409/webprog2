@@ -208,8 +208,4 @@ export default class Rook extends Pieces{
             }
         }
     }
-
-    move(x,y){
-        console.log(`Move ${this.id} to ${x}, ${y}`);
-    }
 }

@@ -223,8 +223,4 @@ export default class Bishop extends Pieces{
             }
         }
     }
-
-    move(x,y){
-        console.log(`Move ${this.id} to ${x}, ${y}`);
-    }
 }

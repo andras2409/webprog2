@@ -373,8 +373,4 @@ export default class Queen extends Pieces{
             }
         }
     }
-
-    move(x,y){
-        console.log(`Move ${this.id} to ${x}, ${y}`);
-    }
 }

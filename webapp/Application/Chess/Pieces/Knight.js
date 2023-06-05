@@ -127,8 +127,4 @@ export default class Knight extends Pieces{
             }
         );
     }
-
-    move(x,y){
-        console.log(`Move ${this.id} to ${x}, ${y}`);
-    }
 }

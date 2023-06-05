@@ -126,8 +126,4 @@ export default class King extends Pieces{
             }
         });
     }
-
-    move(x,y){
-        console.log(`Move ${this.id} to ${x}, ${y}`);
-    }
 }

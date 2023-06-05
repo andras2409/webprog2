@@ -17,28 +17,21 @@ export default class ChessGame{
         this.initMatrix();
         this.cells = document.querySelectorAll(".chess-cell");
         this.matrix.forEach(cell => {
-            cell.forEach(piece => {if(piece instanceof Pieces){
-            piece.img.addEventListener('click',this.pieceClicked.bind(this));
-        }
-        else{
-            const x=piece.charAt(0);
-            const y=piece.charAt(1);
-            this.cells.forEach(ccell => {
-                if(ccell.getAttribute("x")==x && ccell.getAttribute("y")==y){
-                    ccell.addEventListener('click',this.cellClicked.bind(this));
-            }})
-        }
-    
-    
-    })
-    
-    
-    
-    
-    
-    });
-        
-        
+            cell.forEach(piece => {
+                if(piece instanceof Pieces){
+                    piece.img.addEventListener('click',this.pieceClicked.bind(this),true);
+                }
+                else{
+                    const x=piece.charAt(0);
+                    const y=piece.charAt(1);
+                    this.cells.forEach(ccell => {
+                        if(ccell.getAttribute("x")==x && ccell.getAttribute("y")==y){
+                            ccell.addEventListener('click',this.cellClicked.bind(this),true);
+                        }
+                    })
+                }
+            })
+        });
     }
 
     initMatrix(){
@@ -115,6 +108,46 @@ export default class ChessGame{
         const x = evt.currentTarget.getAttribute("x");
         const y = evt.currentTarget.getAttribute("y");
         
+        
+        if((this.selected instanceof Pieces) && !(this.selected instanceof Placeholder)){
+            if(evt.currentTarget.classList.contains('highligthed')){
+                this.matrix=this.selected.move(evt.currentTarget.getAttribute('x'),evt.currentTarget.getAttribute('y'),this.cells,this.matrix);
+                console.log(this.matrix);
+                this.matrix.forEach(cell => {
+                    cell.forEach(piece => {
+                        try{
+                            piece.img.removeEventListener('click',this.pieceClicked.bind(this),true);
+                        }
+                        catch{
+
+                        }
+                        try{
+                            piece.removeEventListener('click',this.cellClicked.bind(this),true); 
+                        }
+                        catch{
+
+                        }
+                        }
+                    )
+                });
+                this.matrix.forEach(cell => {
+                    cell.forEach(piece => {
+                        if(piece instanceof Pieces){
+                            piece.img.addEventListener('click',this.pieceClicked.bind(this),true);
+                        }
+                        else{
+                            const x=piece.charAt(0);
+                            const y=piece.charAt(1);
+                            this.cells.forEach(ccell => {
+                                if(ccell.getAttribute("x")==x && ccell.getAttribute("y")==y){
+                                    ccell.addEventListener('click',this.cellClicked.bind(this),true);
+                                }
+                            })
+                        }
+                    })
+                });
+            }
+        }
         this.cells.forEach(cell => cell.classList.remove('selected'));
         this.cells.forEach(cell => cell.classList.remove('highligthed'));
         this.cells.forEach(cell => cell.classList.remove('strike'));
