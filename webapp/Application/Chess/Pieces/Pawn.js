@@ -43,10 +43,6 @@ export default class Pawn extends Pieces{
         let bbh = false;
         if(this.id.includes('White')){
             for(let i=cells.length-1;i>0;i--){
-                console.log(cells.length);
-                console.log(i);
-                console.log(cells[i]);
-                console.log(cells[i].getAttribute('x'));
                 if(cells[i].children.length==0){
                     if(this.moved<1){
                         if((cells[i].getAttribute('x')==wb[0]) && (cells[i].getAttribute('y')==wb[1])){

@@ -29,6 +29,104 @@ export default class King extends Pieces{
         }
     }
 
+    highligth(matrix,cells){
+        const tl = [this.x-1,this.y-1];
+        const t = [this.x-1,this.y];
+        const tr = [this.x-1,this.y+1];
+        const l = [this.x,this.y-1];
+        const r = [this.x,this.y+1];
+        const bl = [this.x+1,this.y-1];
+        const b = [this.x+1,this.y];
+        const br = [this.x+1,this.y+1];
+
+        cells.forEach(cell => {
+            if(cell.children.length<1){
+                if(cell.getAttribute('x')==tl[0] && cell.getAttribute('y')==tl[1]){
+                    cell.classList.add('highligthed')
+                }
+                else if(cell.getAttribute('x')==t[0] && cell.getAttribute('y')==t[1]){
+                    cell.classList.add('highligthed')
+                }
+                else if(cell.getAttribute('x')==tr[0] && cell.getAttribute('y')==tr[1]){
+                    cell.classList.add('highligthed')
+                }
+                else if(cell.getAttribute('x')==l[0] && cell.getAttribute('y')==l[1]){
+                    cell.classList.add('highligthed')
+                }
+                else if(cell.getAttribute('x')==r[0] && cell.getAttribute('y')==r[1]){
+                    cell.classList.add('highligthed')
+                }
+                else if(cell.getAttribute('x')==bl[0] && cell.getAttribute('y')==bl[1]){
+                    cell.classList.add('highligthed')
+                }
+                else if(cell.getAttribute('x')==b[0] && cell.getAttribute('y')==b[1]){
+                    cell.classList.add('highligthed')
+                }
+                else if(cell.getAttribute('x')==br[0] && cell.getAttribute('y')==br[1]){
+                    cell.classList.add('highligthed')
+                }
+            }
+            else{
+                if(this.id.includes('White')){
+                    if(cell.children[0].getAttribute('id').includes('Black')){
+                        if(cell.getAttribute('x')==tl[0] && cell.getAttribute('y')==tl[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==t[0] && cell.getAttribute('y')==t[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==tr[0] && cell.getAttribute('y')==tr[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==l[0] && cell.getAttribute('y')==l[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==r[0] && cell.getAttribute('y')==r[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==bl[0] && cell.getAttribute('y')==bl[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==b[0] && cell.getAttribute('y')==b[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==br[0] && cell.getAttribute('y')==br[1]){
+                            cell.classList.add('strike')
+                        }
+                    }
+                }
+                else if(this.id.includes('Black')){
+                    if(cell.children[0].getAttribute('id').includes('White')){
+                        if(cell.getAttribute('x')==tl[0] && cell.getAttribute('y')==tl[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==t[0] && cell.getAttribute('y')==t[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==tr[0] && cell.getAttribute('y')==tr[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==l[0] && cell.getAttribute('y')==l[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==r[0] && cell.getAttribute('y')==r[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==bl[0] && cell.getAttribute('y')==bl[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==b[0] && cell.getAttribute('y')==b[1]){
+                            cell.classList.add('strike')
+                        }
+                        else if(cell.getAttribute('x')==br[0] && cell.getAttribute('y')==br[1]){
+                            cell.classList.add('strike')
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     move(x,y){
         console.log(`Move ${this.id} to ${x}, ${y}`);
     }
