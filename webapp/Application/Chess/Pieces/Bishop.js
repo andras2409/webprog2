@@ -27,10 +27,15 @@ export default class Bishop extends Pieces{
                 cells[i].appendChild(this.img);
             }
         }
+        console.log(this.x);
+        console.log(this.y);
     }
 
     highligth(metrix,cells){
         const bishopIndex = Array.from(cells).indexOf(this.img.parentElement);
+        console.log(this.x);
+        console.log(this.y);
+        console.log(this.y+1)
         const tl=[[this.x-1,this.x-2,this.x-3,this.x-4,this.x-5,this.x-6,this.x-7],
                   [this.y-1,this.y-2,this.y-3,this.y-4,this.y-5,this.y-6,this.y-7]]
         const tr=[[this.x-1,this.x-2,this.x-3,this.x-4,this.x-5,this.x-6,this.x-7],

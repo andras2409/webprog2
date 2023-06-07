@@ -88,8 +88,11 @@ export default class Pawn extends Pieces{
                         }
                     }
                 }
-                else if(cell.children[0].getAttribute('id').includes('Black')){
-                    if((cell.getAttribute('x')==bl[0] || cell.getAttribute('x')==br[0]) && (cell.getAttribute('y')==bl[1] || cell.getAttribute('y')==br[1])){
+                else if(cell.children[0].getAttribute('id').includes('White')){
+                    if((cell.getAttribute('x')==bl[0]) && (cell.getAttribute('y')==bl[1])){
+                        cell.classList.add('strike');
+                    }
+                    else if(cell.getAttribute('x')==br[0] && cell.getAttribute('y')==br[1]){
                         cell.classList.add('strike');
                     }
                 }
@@ -100,6 +103,8 @@ export default class Pawn extends Pieces{
     move(x,y,cells,matrix){
         console.log(`Move ${this.id} to ${x}, ${y}`);
         console.log(this.img.parentElement.children[0]);
+        x=Number(x);
+        y=Number(y);
         let dcell;
         cells.forEach(cell => {
             if(x==cell.getAttribute('x') && y==cell.getAttribute('y')){
