@@ -36,19 +36,41 @@ export default class TicTacToeGame{
             running = true;
         }
 
-        function cellClicked()
-        {
+        function cellClicked() {
             console.log('Cell clicked');
-
+        
             const index = this.getAttribute('index');
-
-            if(options[index] != "" || !running)
-            {
+        
+            if (options[index] != "" || !running) {
                 return;
             }
-
+        
             updateCell(this, index);
             checkWinner();
+        
+            if (currentPlayer == "X") {
+                changePlayer();
+            } else {
+                setTimeout(chooseRandomCell(), 999);
+            }
+        }
+
+        function chooseRandomCell() {
+            console.log('Choosing random cell');
+            const emptyCells = [];
+            cells.forEach((cell, index) => {
+                if (options[index] === "") {
+                    emptyCells.push(index);
+                }
+            });
+        
+            if (emptyCells.length > 0) {
+                const randomIndex = Math.floor(Math.random() * emptyCells.length);
+                const randomCellIndex = emptyCells[randomIndex];
+                const randomCell = cells[randomCellIndex];
+                updateCell(randomCell, randomCellIndex);
+                checkWinner();
+            }
         }
 
         function updateCell(cell, index)
@@ -62,7 +84,6 @@ export default class TicTacToeGame{
         {
             console.log('Change player');
             currentPlayer = (currentPlayer == "X") ? "O" : "X";
-            statusText.textContent = `${currentPlayer}'s turn`;
         }
 
         function checkWinner()
@@ -85,7 +106,7 @@ export default class TicTacToeGame{
                 }
             }
 
-            if(roundWon){
+            if(roundWon == true){
                 statusText.textContent = `${currentPlayer} wins!`;
                 running = false;
             }
