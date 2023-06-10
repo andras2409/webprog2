@@ -11,6 +11,15 @@ export default class Chess extends Application{
 
     initBoard()
     {
+        const black = document.createElement('div');
+        black.id= 'black-removed';
+        this.app.appendChild(black);
+        for(let i=0;i<2;i++){
+           black.appendChild(document.createElement('div'));
+           black.lastChild.classList.add('removed-col');
+           black.lastChild.setAttribute('row',i);
+        }
+        
         const board = document.createElement('div');
         board.id = 'chess-board-container';
         this.app.appendChild(board);
@@ -61,5 +70,15 @@ export default class Chess extends Application{
                 }
             }
         }
+
+        const white = document.createElement('div');
+        white.id='white-removed';
+        this.app.appendChild(white);
+
+        for(let i=0;i<2;i++){
+            white.appendChild(document.createElement('div'));
+            white.lastChild.classList.add('removed-col');
+            white.lastChild.setAttribute('row',i);
+         }
     }
 }

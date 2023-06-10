@@ -13,6 +13,7 @@ export default class ChessGame{
 
     constructor(){
         this.selected = new Placeholder();
+        this.strike = false;
         this.initPieces();
         this.initMatrix();
         this.cells = document.querySelectorAll(".chess-cell");
@@ -57,50 +58,51 @@ export default class ChessGame{
     }
 
     pieceClicked(evt) {
-        console.log(evt.currentTarget);
-        console.log(this);
-        const cells = document.querySelectorAll(".chess-cell");
-        const x = evt.currentTarget.parentElement.getAttribute("x");
-        const y = evt.currentTarget.parentElement.getAttribute("y");
-        if(this.selected instanceof Placeholder){
-        if((!evt.currentTarget.parentElement.classList.contains('selected')) && (evt.currentTarget.parentElement.children.length != 0)){
-            evt.currentTarget.parentElement.classList.add('selected')
-            this.selectedID=evt.currentTarget.id;
-            this.getSelected(this.selectedID);
-            console.log(`selected ${this.selected}`);
-            console.log()
+        if(evt.currentTarget.classList.contains('removed')){
+
         }
-        else if(evt.currentTarget.parentElement.classList.contains('selected')){
-            this.selectedID = "None";
-            this.getSelected(this.selectedID);
-            console.log(`selected ${this.selected}`);
-        }
-        
-        this.highligth();
-        }
-        else{
-            if((!evt.currentTarget.parentElement.classList.contains('selected')) && (evt.currentTarget.parentElement.children.length != 0)){
-                evt.currentTarget.parentElement.classList.add('selected')
-                this.selectedID=evt.currentTarget.id;
-                this.getSelected(this.selectedID);
-                console.log(`selected ${this.selected}`);
-                console.log()
+        else
+        {
+            const cells = document.querySelectorAll(".chess-cell");
+            const x = evt.currentTarget.parentElement.getAttribute("x");
+            const y = evt.currentTarget.parentElement.getAttribute("y");
+            if(this.strike==true){
+                this.strike=false;
             }
-            else if(evt.currentTarget.parentElement.classList.contains('selected')){
-                this.selectedID = "None";
-                this.getSelected(this.selectedID);
-                console.log(`selected ${this.selected}`);
+            else{
+                if(this.selected instanceof Placeholder){
+                if((!evt.currentTarget.parentElement.classList.contains('selected')) && (evt.currentTarget.parentElement.children.length != 0)){
+                    evt.currentTarget.parentElement.classList.add('selected')
+                    this.selectedID=evt.currentTarget.id;
+                    this.getSelected(this.selectedID);
+                    console.log(`selected ${this.selectedID}`);
+                }
+                else if(evt.currentTarget.parentElement.classList.contains('selected')){
+                    this.selectedID = "None";
+                    this.getSelected(this.selectedID);
+                }
+                
+                this.highligth();
+                }
+                else{
+                    if((!evt.currentTarget.parentElement.classList.contains('selected')) && (evt.currentTarget.parentElement.children.length != 0)){
+                        evt.currentTarget.parentElement.classList.add('selected')
+                        this.selectedID=evt.currentTarget.id;
+                        this.getSelected(this.selectedID);
+                        console.log(`selected ${this.selectedID}`);
+                    }
+                    else if(evt.currentTarget.parentElement.classList.contains('selected')){
+                        this.selectedID = "None";
+                        this.getSelected(this.selectedID);
+                    }
+                    
+                    this.highligth();
+                }
             }
-            
-            this.highligth();
         }
-        console.log(`x: ${x}, y: ${y}`);
-        
     }
 
     cellClicked(evt) {
-        console.log(evt.currentTarget);
-        console.log(this);
         const x = evt.currentTarget.getAttribute("x");
         const y = evt.currentTarget.getAttribute("y");
         
@@ -108,7 +110,10 @@ export default class ChessGame{
         if((this.selected instanceof Pieces) && !(this.selected instanceof Placeholder)){
             if(evt.currentTarget.classList.contains('highligthed')){
                 this.matrix=this.selected.move(evt.currentTarget.getAttribute('x'),evt.currentTarget.getAttribute('y'),this.cells,this.matrix);
-                console.log(this.matrix);
+            }
+            else if(evt.currentTarget.classList.contains('strike')){
+                this.matrix=this.selected.strike(evt.currentTarget.getAttribute('x'),evt.currentTarget.getAttribute('y'),this.cells,this.matrix);
+                this.strike=true;
             }
         }
         this.cells.forEach(cell => cell.classList.remove('selected'));
@@ -116,9 +121,6 @@ export default class ChessGame{
         this.cells.forEach(cell => cell.classList.remove('strike'));
         this.selectedID = "None";
         this.getSelected("None");
-        console.log(`selected ${this.selected}`);
-        console.log(`x: ${x}, y: ${y}`);
-        
     }
 
     highligth(){
@@ -185,7 +187,6 @@ export default class ChessGame{
     }
 
     getSelected(selectedID){
-        console.log(selectedID);
         switch(selectedID){
             case "None": this.selected=this.Placeholder;break;
             
