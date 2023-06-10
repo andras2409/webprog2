@@ -24,7 +24,6 @@ export default class Pawn extends Pieces{
             const cell_x = cells[i].getAttribute('x');
             const cell_y = cells[i].getAttribute('y');
             if(x==cell_x && y==cell_y){
-                console.log(`true ${cell_x}, ${cell_y}`);
                 cells[i].appendChild(this.img);
             }
         }
@@ -102,7 +101,6 @@ export default class Pawn extends Pieces{
 
     move(x,y,cells,matrix){
         console.log(`Move ${this.id} to ${x}, ${y}`);
-        console.log(this.img.parentElement.children[0]);
         x=Number(x);
         y=Number(y);
         let dcell;
@@ -112,7 +110,6 @@ export default class Pawn extends Pieces{
             }
         });
         cells.forEach(cell => {
-            console.log(cell.getAttribute('x'));
             if(this.x==cell.getAttribute('x') && this.y==cell.getAttribute('y')){
                 
                 this.img.parentElement.removeChild(this.img.parentElement.children[0]);

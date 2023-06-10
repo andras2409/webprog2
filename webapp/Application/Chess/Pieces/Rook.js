@@ -23,7 +23,6 @@ export default class Rook extends Pieces{
             const cell_x = cells[i].getAttribute('x');
             const cell_y = cells[i].getAttribute('y');
             if(x==cell_x && y==cell_y){
-                console.log(`true ${cell_x}, ${cell_y}`);
                 cells[i].appendChild(this.img);
             }
         }
@@ -46,7 +45,6 @@ export default class Rook extends Pieces{
             rarray[i]=true;
         }
         for(let i=rookIndex-1;i>=0;i--){
-            console.log(i);
             if(cells[i].children.length<1){
                 if(cells[i].getAttribute('x')==this.x){
                     if(!(larray.includes(false))){
@@ -120,11 +118,7 @@ export default class Rook extends Pieces{
                 }
             }
         }
-        console.log('---------------------');
-        console.log(cells.length);
-        console.log('---------------------');
         for(let i=rookIndex+1;i<cells.length;i++){
-            console.log(i);
             if(cells[i].children.length<1){
                 if(cells[i].getAttribute('x')==this.x){
                     if(!(rarray.includes(false))){

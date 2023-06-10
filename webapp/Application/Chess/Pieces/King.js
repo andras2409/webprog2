@@ -23,7 +23,6 @@ export default class King extends Pieces{
             const cell_x = cells[i].getAttribute('x');
             const cell_y = cells[i].getAttribute('y');
             if(x==cell_x && y==cell_y){
-                console.log(`true ${cell_x}, ${cell_y}`);
                 cells[i].appendChild(this.img);
             }
         }
