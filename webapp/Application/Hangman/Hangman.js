@@ -4,6 +4,7 @@ export default class Chess extends Application{
 
     init(){
         this.initDOM();
+        this.game = new HangmanGame();
     }
 
     initDOM(){
@@ -37,8 +38,24 @@ export default class Chess extends Application{
 
         gameContainer.appendChild(document.createElement('div'));
         gameContainer.lastChild.id = 'user-input-section';
+        
+        gameContainer.appendChild(document.createElement('canvas'));
+        gameContainer.lastChild.id = 'canvas';
 
         this.canvas = new Canvas();
+        
+         gameContainer.appendChild(document.createElement('div'));
+        gameContainer.lastChild.id = 'new-game-container';
+        gameContainer.lastChild.appendChild(document.createElement('div'));
+        gameContainer.lastChild.lastChild.id = 'result-text';
+        gameContainer.lastChild.appendChild(document.createElement('button'));
+        gameContainer.lastChild.lastChild.textContent = 'Új játék';
+
+        winCount = 0;
+        count = 0;
+
+        let { initialDrawing } = canvasCreator();
+        initialDrawing();
     }
 }
 
