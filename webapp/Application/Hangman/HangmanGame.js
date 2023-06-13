@@ -16,20 +16,20 @@ export default class HangmanGame{
         let options = {
         
         Animals: [
-            "Kutya", 
-            "Macska", 
-            "Tigris", 
+            "Dog", 
+            "Cat", 
+            "Tiger", 
             "Panda", 
-            "Medve", 
+            "Bear", 
             "Zebra"
             ],
         Fruits: [
-                "Alma",
-                "Szilva",
-                "Barack",
-                "Eper",
-                "Dinnye",
-                "Paradicsom"
+                "Apple",
+                "Plum",
+                "Peach",
+                "Strawberry",
+                "Melon",
+                "Tomato"
                 ],
         Cars: [
             "Suzuki",
@@ -47,7 +47,7 @@ export default class HangmanGame{
         let chosenWord = "";
 
         const displayOptions = () => {
-            optionsContainer.innerHTML += `<h3>Válasszon kategóriát</h3>`;
+            optionsContainer.innerHTML += `<h3>Choose a category!</h3>`;
             let buttonCon = document.createElement("div");
             for (let value in options) {
               buttonCon.innerHTML += `<button class="options" onclick="generateWord('${value}')">${value}</button>`;
