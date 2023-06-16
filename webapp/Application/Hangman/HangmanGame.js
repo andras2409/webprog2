@@ -5,40 +5,33 @@ export default class HangmanGame{
     }
 
     Game(){
-        const letterContainer = document.getElementById("letter-container");
-        const optionsContainer = document.getElementById("options-container");
-        const userInputSection = document.getElementById("user-input-section");
-        const newGameContainer = document.getElementById("new-game-container");
-        const newGameButton = document.getElementById("new-game-button");
-        const canvas = document.getElementById("canvas");
-        const resultText = document.getElementById("result-text");
+        const categories = document.querySelectorAll('.category');
 
         let options = {
-        
-        Animals: [
-            "Dog", 
-            "Cat", 
-            "Tiger", 
-            "Panda", 
-            "Bear", 
-            "Zebra"
-            ],
-        Fruits: [
-                "Apple",
-                "Plum",
-                "Peach",
-                "Strawberry",
-                "Melon",
-                "Tomato"
+            Animals: [
+                "Dog", 
+                "Cat", 
+                "Tiger", 
+                "Panda", 
+                "Bear", 
+                "Zebra"
                 ],
-        Cars: [
-            "Suzuki",
-            "Audi",
-            "Honda",
-            "Mercedes",
-            "Lexus",
-            "Pontiac"
-        ],
+            Fruits: [
+                    "Apple",
+                    "Plum",
+                    "Peach",
+                    "Strawberry",
+                    "Melon",
+                    "Tomato"
+                    ],
+            Cars: [
+                "Suzuki",
+                "Audi",
+                "Honda",
+                "Mercedes",
+                "Lexus",
+                "Pontiac"
+            ]
         };
 
         let winCount = 0;

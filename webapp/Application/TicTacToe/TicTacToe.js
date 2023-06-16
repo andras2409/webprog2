@@ -6,6 +6,7 @@ export default class TicTacToe extends Application{
 
     init()
     {
+        super.init();
         this.initDOM();
         this.game = new TicTacToeGame();
     }
