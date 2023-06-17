@@ -175,9 +175,11 @@ body{
     box-sizing: border-box;
 }
 
-#option-container div{
+#option-container div {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    margin: 1.2em 0 2.4em 0;
 }
 
 #option-container button{
@@ -188,17 +190,40 @@ body{
     color:#000;
 }
 
-#options-container button:active{
+#option-container button:active{
     border: 3px solid #808080;
     color: #808080;
     background-color: #efefef;
 }
 
-#options-container button:disabled{
+#option-container button:disabled{
     border: 3px solid #808080;
     color: #808080;
     background-color: #efefef;
 }
+
+#letter-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6em;
+}
+
+#letter-container button{
+    height: 2.4em;
+    width: 2.4em;
+    border-radius: 0.3em;
+    background-color: #fff;
+}
+
+#solution-container{
+    display: flex;
+    justify-content: center;
+    font-size: 1.8em;
+    margin: 0.6em 0 1.2em 0;
+}
+
 
 #canvas{
     margin-top: 15px;

@@ -6,6 +6,7 @@ export default class HangmanGame{
 
     Game(){
         const categories = document.querySelectorAll('.category');
+        const hangmanContainer = document.querySelector('#hangman-container');
 
         let options = {
             Animals: [
@@ -34,144 +35,71 @@ export default class HangmanGame{
             ]
         };
 
-        let winCount = 0;
-        let count = 0;
+        let chosenCategory = "";
+        let categoryChosen = false;
 
-        let chosenWord = "";
+        console.log('initGame started');
+        initGame();
 
-        const displayOptions = () => {
-            optionsContainer.innerHTML += `<h3>Choose a category!</h3>`;
-            let buttonCon = document.createElement("div");
-            for (let value in options) {
-              buttonCon.innerHTML += `<button class="options" onclick="generateWord('${value}')">${value}</button>`;
+        function initGame(){
+            categories.forEach(category => category.addEventListener('click', categoryClicked));
+        }
+
+        function categoryClicked(){
+            console.log('category clicked');
+            chosenCategory = this.getAttribute('index');
+            categoryChosen = true;
+            this.setAttribute('chosen',true);
+            
+            if(categoryChosen === true){
+                displayLetters();
+                displayLines();
             }
-            optionsContainer.appendChild(buttonCon);
-          };
 
-        //Gombok tiltása
-        const blocker = () => {
-            let optionsButtons = document.querySelectorAll(".options");
-            let letterButtons = document.querySelectorAll(".letters");
-            //kategóriák tiltása
-            optionsButtons.forEach((button) => {
+            const statusText = document.querySelector('h3');
+            statusText.remove();
+
+            disableButtons();
+            chooseRandomWord(chosenCategory);
+        }
+
+        function chooseRandomWord(chosenCategory) {
+            console.log('selecting random word');
+            
+        }
+
+        function disableButtons(){
+            const buttons = document.querySelectorAll('.category');
+            buttons.forEach(button => {
+                button.removeEventListener('click', categoryClicked);
+                button.classList.add('.disabled');
                 button.disabled = true;
             });
-        
-            //betűk tiltása
-            letterButtons.forEach((button) => {
-                button.disabled.true;
-            });
-            newGameContainer.classList.remove("hide");
-        };
+        }
 
-        //Szó generáló
-        const generateWord = (optionValue) => {
-        let optionsButtons = document.querySelectorAll(".options");
+        function displayLetters(){
+            const letterContainer = document.createElement('div');
+            hangmanContainer.appendChild(letterContainer);
+            letterContainer.id = 'letter-container';
 
-        //Belső gomb kijelölése kiválasztásra
-        optionsButtons.forEach((button) => {
-            if (button.innerText.toLowerCase() === optionValue) {
-            button.classList.add("active");
+            for(let i = 65; i < 91; i++){
+                var letter = String.fromCharCode(i);
+                hangmanContainer.lastChild.appendChild(document.createElement('button'));
+                hangmanContainer.lastChild.lastChild.class = 'letter';
+                hangmanContainer.lastChild.lastChild.textContent = letter;
+                hangmanContainer.lastChild.lastChild.addEventListener('click', letterClicked);
             }
-            button.disabled = true;
-        });
+        }
 
-        //korábbi szó, betűk törlése
-        letterContainer.classList.remove("hide");
-        userInputSection.innerText = "";
+        function letterClicked(){
+            this.classList.add('.disabled');
+            this.disabled = true;
+        }
 
-        let optionArray = options[optionValue];
-
-        //random szó kiválasztása
-        chosenWord = optionArray[Math.floor(Math.random() * optionArray.length)];
-        chosenWord = chosenWord.toUpperCase();
-        console.log(chosenWord);
-
-        //gondolatjelek a betűk helyére
-        let displayItem = chosenWord.replace(/./g, '<span class="dashes">_</span>');
-        userInputSection.innerHTML = displayItem;
-        };
-
-        //Akasztófa felülete
-        const canvasCreator = () => {
-            let context = canvas.getContext("2d");
-            context.beginPath();
-            context.strokeStyle = "#000";
-            context.lineWidth = 2;
-        
-            const drawLine = (fromX, fromY, toX, toY) => {
-            context.moveTo(fromX, fromY);
-            context.lineTo(toX, toY);
-            context.stroke();
-            };
-        
-            const head = () => {
-            context.beginPath();
-            context.arc(70, 30, 10, 0, Math.PI * 2, true);
-            context.stroke();
-            };
-        
-            const body = () => {
-            drawLine(70, 40, 70, 80);
-            };
-        
-            const leftArm = () => {
-            drawLine(70, 50, 50, 70);
-            };
-        
-            const rightArm = () => {
-            drawLine(70, 50, 90, 70);
-            };
-        
-            const leftLeg = () => {
-            drawLine(70, 80, 50, 110);
-            };
-        
-            const rightLeg = () => {
-            drawLine(70, 80, 90, 110);
-            };
-        
-            //Keret
-            const initialDrawing = () => {
-            context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-            drawLine(10, 130, 130, 130);
-            drawLine(10, 10, 10, 131);
-            drawLine(10, 10, 70, 10);
-            drawLine(70, 10, 70, 20);
-            };
-        
-            return { initialDrawing, head, body, leftArm, rightArm, leftLeg, rightLeg };
-        };
-
-        //testrészek berajzolása
-        const drawMan = (count) => {
-            let { head, body, leftArm, rightArm, leftLeg, rightLeg } = canvasCreator();
-            switch (count) {
-            case 1:
-                head();
-                break;
-            case 2:
-                body();
-                break;
-            case 3:
-                leftArm();
-                break;
-            case 4:
-                rightArm();
-                break;
-            case 5:
-                leftLeg();
-                break;
-            case 6:
-                rightLeg();
-                break;
-            default:
-                break;
-            }
-        };
-        
-        //Új játék
-        newGameButton.addEventListener("click", initializer);
-        window.onload = initializer;
+        function displayLines(){
+            const solutionContainer = document.createElement('div');
+            hangmanContainer.appendChild(solutionContainer);
+            solutionContainer.id = 'solution-container';
+        }
     }
 }
