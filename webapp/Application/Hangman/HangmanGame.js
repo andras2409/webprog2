@@ -1,3 +1,5 @@
+import HangmanCanvas from "../Hangman/HangmanCanvas.js";
+
 export default class HangmanGame{
     constructor()
     {
@@ -7,6 +9,7 @@ export default class HangmanGame{
     Game(){
         const categories = document.querySelectorAll('.category');
         const hangmanContainer = document.querySelector('#hangman-container');
+        const canvas = new HangmanCanvas();
 
         let options = {
             Animals: [
@@ -37,6 +40,10 @@ export default class HangmanGame{
 
         let chosenCategory = "";
         let categoryChosen = false;
+        let chosenWord = "";
+        let chosenWordArray = [];
+        let clickedLetters = [];
+        let wrongChoices = 0;
 
         console.log('initGame started');
         initGame();
@@ -46,7 +53,6 @@ export default class HangmanGame{
         }
 
         function categoryClicked(){
-            console.log('category clicked');
             chosenCategory = this.getAttribute('index');
             categoryChosen = true;
             this.setAttribute('chosen',true);
@@ -61,11 +67,36 @@ export default class HangmanGame{
 
             disableButtons();
             chooseRandomWord(chosenCategory);
+            canvas.initCanvas();
+            canvas.gallows();
         }
 
         function chooseRandomWord(chosenCategory) {
-            console.log('selecting random word');
-            
+            switch(parseInt(chosenCategory)){
+                case 1: 
+                    chosenWord = options.Animals[Math.floor(Math.random() * options.Animals.length)];
+                    break;
+                case 2: 
+                    chosenWord = options.Fruits[Math.floor(Math.random() * options.Animals.length)];
+                    break;
+                case 3: 
+                    chosenWord = options.Cars[Math.floor(Math.random() * options.Animals.length)];
+                    break;
+            }
+            chosenWordArray = chosenWord.toUpperCase().split("");
+            console.log(chosenWordArray);
+
+            displayDashes();
+        }
+
+        function displayDashes(){
+            const solutionContainer = document.querySelector('#solution-container');
+            for(let i = 0; i < chosenWordArray.length; i++){
+                solutionContainer.appendChild(document.createElement('span'));
+                solutionContainer.lastChild.setAttribute('index', i);
+                solutionContainer.lastChild.classList.add('dash');
+                solutionContainer.lastChild.textContent = '_';
+            }
         }
 
         function disableButtons(){
@@ -94,6 +125,38 @@ export default class HangmanGame{
         function letterClicked(){
             this.classList.add('.disabled');
             this.disabled = true;
+            clickedLetters.push(this.textContent);
+
+            console.log(clickedLetters);
+            checkIfCorrect(this.textContent);
+        }
+        
+        function checkIfCorrect(letter){
+            const spans = document.querySelectorAll('.dash');
+            const counter = 0;
+            for(let i = 0; i < chosenWordArray.length; i++){
+                if(letter == chosenWordArray[i]){
+                    spans[i].textContent = letter;
+                }
+            }
+            updateCanvas(wrongChoices);
+        }
+
+        function updateCanvas(wrongChoices){
+            switch(wrongChoices){
+                case 1: canvas.head();
+                    break;
+                case 2: canvas.body();
+                    break;
+                case 3: canvas.leftArm();
+                    break;
+                case 4: canvas.rightArm();
+                    break;
+                case 5: canvas.leftLeg();
+                    break;
+                case 6: canvas.rightLeg();
+                    break;
+            }
         }
 
         function displayLines(){

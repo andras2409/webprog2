@@ -15,7 +15,6 @@ export default class Chess extends Application{
         this.app.appendChild(gameContainer);
 
         this.initCategories();
-        //this.initCanvas();
     }
 
     initCategories(){
@@ -40,16 +39,5 @@ export default class Chess extends Application{
         categories.lastChild.lastChild.textContent = 'Cars';
         categories.lastChild.lastChild.classList.add('category');
         categories.lastChild.lastChild.setAttribute('index',3);
-    }
-
-    initCanvas(){
-        const cancas = document.createElement('canvas');
-        this.app.lastChild.appendChild(cancas);
-        cancas.id = 'canvas';
-
-        let context = canvas.getContext("2d");
-        context.beginPath();
-        context.strokeStyle = "#000";
-        context.lineWidth = 3;
     }
 }
