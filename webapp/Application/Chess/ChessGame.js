@@ -12,8 +12,11 @@ export default class ChessGame{
     
 
     constructor(){
+        this.blackCheck = false;
+        this.whiteCheck = false;
         this.selected = new Placeholder();
         this.strike = false;
+        this.player="White";
         this.initPieces();
         this.initMatrix();
         this.cells = document.querySelectorAll(".chess-cell");
@@ -22,16 +25,11 @@ export default class ChessGame{
                 if(piece instanceof Pieces){
                     piece.img.addEventListener('click',this.pieceClicked.bind(this),true);
                 }
-
-                    
-                
             })
         });
-        this.cells.forEach(ccell => {
-                        
+        this.cells.forEach(ccell => {   
             ccell.addEventListener('click',this.cellClicked.bind(this),true);
-        
-    })
+        })
     }
 
     initMatrix(){
@@ -61,7 +59,7 @@ export default class ChessGame{
         if(evt.currentTarget.classList.contains('removed')){
 
         }
-        else
+        else if(evt.currentTarget.getAttribute('id').includes(this.player))
         {
             const cells = document.querySelectorAll(".chess-cell");
             const x = evt.currentTarget.parentElement.getAttribute("x");
@@ -99,6 +97,7 @@ export default class ChessGame{
                     this.highligth();
                 }
             }
+
         }
     }
 
@@ -110,12 +109,51 @@ export default class ChessGame{
         if((this.selected instanceof Pieces) && !(this.selected instanceof Placeholder)){
             if(evt.currentTarget.classList.contains('highligthed')){
                 this.matrix=this.selected.move(evt.currentTarget.getAttribute('x'),evt.currentTarget.getAttribute('y'),this.cells,this.matrix);
+                if(this.selected.id.includes('White')){
+                    this.blackCheck=this.selected.isCheck(this.matrix,this.cells);
+                }
+                else if(this.selected.id.includes('Black')){
+                    this.whiteCheck=this.selected.isCheck(this.matrix,this.cells);
+                }
+                if(this.player=="White"){
+                    this.player="Black";
+                }
+                else if(this.player=="Black"){
+                    this.player="White";
+                }
             }
             else if(evt.currentTarget.classList.contains('strike')){
                 this.matrix=this.selected.strike(evt.currentTarget.getAttribute('x'),evt.currentTarget.getAttribute('y'),this.cells,this.matrix);
                 this.strike=true;
+                this.blackCheck=false;
+                this.whiteCheck=false;
+                this.cells.forEach(cell => {
+                    if(cell.children.length>0){
+                        if(this.selected.id.includes('White')){
+                            if(cell.children[0].isCheck(this.matrix,this.cells)){
+                                this.blackCheck=true;
+                            }
+                        }
+                        else if(this.selected.id.includes('Black')){
+                            if(cell.children.isCheck(this.matrix,this.cells)){
+                                this.whiteCheck=true;
+                            }
+                            
+                        }
+                    }
+                    
+                })
+                
+                if(this.player=="White"){
+                    this.player="Black";
+                }
+                else if(this.player=="Black"){
+                    this.player="White";
+                }
             }
         }
+        console.log(this.whiteCheck);
+        console.log(this.blackCheck);
         this.cells.forEach(cell => cell.classList.remove('selected'));
         this.cells.forEach(cell => cell.classList.remove('highligthed'));
         this.cells.forEach(cell => cell.classList.remove('strike'));
@@ -135,7 +173,12 @@ export default class ChessGame{
     }
 
 
-
+/*
+            move;
+            check?
+                moved.highlith/wo cell
+                king inside?
+*/
 
 
 

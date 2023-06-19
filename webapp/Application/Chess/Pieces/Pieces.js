@@ -85,4 +85,9 @@ export default class Pieces{
         });
         return matrix;
     }
+
+    isCheck(matrix,cells){
+        console.log('Placeholder text')
+        return false;
+    }
 }
