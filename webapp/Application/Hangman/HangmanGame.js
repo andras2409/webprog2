@@ -47,7 +47,9 @@ export default class HangmanGame{
         let clickedLetters = [];
         let maxError = 6;
         let errornumber = 0;
-        let correct = false;
+        let correct = true;
+        let win = [""];
+        let youWon = true;
 
         console.log('initGame started');
         initGame();
@@ -86,6 +88,7 @@ export default class HangmanGame{
                     break;
             }
             chosenWordArray = chosenWord.toUpperCase().split("");
+            win.length = chosenWordArray.length;
             displayDashes();
         }
 
@@ -134,16 +137,58 @@ export default class HangmanGame{
             for(let i = 0; i < chosenWordArray.length; i++){
                 if(letter == chosenWordArray[i]){
                     spans[i].textContent = letter;
-                    correct = true;
+                    win[i] = letter;
+                    console.log(win);
+                    correct = true;   
                 }
             }
-            if(!correct){
+            if(correct){
+                checkWin();
+            }
+            else{
                 errornumber++;
                 updateCanvas(errornumber);
                 if(errornumber == maxError){
                     gameOver();
                 }
             }
+        }
+
+        function checkWin(){
+            console.log('checking win');
+            for(let i = 0; i < chosenWordArray.length; i++){
+                if(win[i] != chosenWordArray[i]){
+                    youWon = false;
+                }
+            }
+            if(youWon){
+                victory();
+            } 
+            else{
+                console.log('you did not win');
+            }
+            youWon = true;
+        }
+
+        function victory(){
+            categoryContainer.remove();
+            const letters = document.querySelector('#letter-container');
+            letters.remove();
+            const dashes = document.querySelector('#solution-container');
+            dashes.remove();
+            const endCenvas = document.querySelector('#canvas');
+            endCenvas.remove();
+
+            hangmanContainer.appendChild(document.createElement('div'));
+            hangmanContainer.lastChild.id = 'endDiv';
+            hangmanContainer.lastChild.appendChild(document.createElement('div'));
+            hangmanContainer.lastChild.lastChild.textContent = 'Victory!';
+            hangmanContainer.lastChild.lastChild.id = 'victory-div';
+            hangmanContainer.lastChild.appendChild(document.createElement('div'));
+            hangmanContainer.lastChild.lastChild.id = 'chosenWord-div';
+            hangmanContainer.lastChild.lastChild.textContent = `Your word was ${chosenWord.toUpperCase()}`;
+
+            hangmanRestartBtn();
         }
 
         function gameOver(){
@@ -156,19 +201,22 @@ export default class HangmanGame{
             endCenvas.remove();
 
             hangmanContainer.appendChild(document.createElement('div'));
-            hangmanContainer.lastChild.id = 'game-over-div';
+            hangmanContainer.lastChild.id = 'endDiv';
             hangmanContainer.lastChild.appendChild(document.createElement('div'));
             hangmanContainer.lastChild.lastChild.textContent = 'Game Over!';
-            hangmanContainer.lastChild.lastChild.id = 'end-msg-div';
+            hangmanContainer.lastChild.lastChild.id = 'game-over-div';
             hangmanContainer.lastChild.appendChild(document.createElement('div'));
             hangmanContainer.lastChild.lastChild.id = 'chosenWord-div';
             hangmanContainer.lastChild.lastChild.textContent = `Your word was ${chosenWord.toUpperCase()}`;
 
+            hangmanRestartBtn();
+        }
+
+        function hangmanRestartBtn(){
             const hangmanRestartBtn = document.createElement('button');
             hangmanContainer.lastChild.appendChild(hangmanRestartBtn);
             hangmanContainer.lastChild.lastChild.id = 'hangman-restart-btn';
             hangmanContainer.lastChild.lastChild.textContent = 'RESTART';
-
             hangmanRestartBtn.addEventListener('click', restartHangman);
         }
 
@@ -204,7 +252,7 @@ export default class HangmanGame{
             errornumber = 0;
             correct = false;
 
-            const gameOverDiv = document.querySelector('#game-over-div');
+            const gameOverDiv = document.querySelector('#endDiv');
             gameOverDiv.remove();
             
             hangmanContainer.appendChild(categoryContainer);
