@@ -23,6 +23,10 @@ class TreasureFinder extends Application {
         const td = document.createElement("td");
         td.classList.add("tile");
         td.style.backgroundColor = "yellow";
+        td.addEventListener("click", () => {
+          console.log("Tile clicked");
+          this.game.handleTileClick(td);
+        });
         tr.appendChild(td);
         rowTiles.push(td);
       }

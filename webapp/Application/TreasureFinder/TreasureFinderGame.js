@@ -20,19 +20,22 @@ export default class TreasureFinderGame {
       this.tiles.push(rowTiles);
     }
 
-    this.addEventListeners();
-
     const treasureRow = Math.floor(Math.random() * this.gridSize);
     const treasureCol = Math.floor(Math.random() * this.gridSize);
     this.treasureTile = this.tiles[treasureRow][treasureCol];
     this.treasureTile.dataset.isTreasure = true;
   }
 
-  addEventListeners() {
-    const tiles = document.querySelectorAll(".tile");
-    tiles.forEach((tile) => {
-      tile.addEventListener("click", this.handleTileClick.bind(this));
-    });
+  handleTileClick(tile) {
+    if (tile === this.treasureTile) {
+      this.showResult("YOU WIN", "green");
+    } else {
+      this.computerPickTile();
+      this.showResult("YOU LOST", "red");
+    }
+
+    this.revealTiles();
+    this.removeEventListeners();
   }
 
   computerPickTile() {
@@ -52,22 +55,11 @@ export default class TreasureFinderGame {
     }
   }
 
-  handleTileClick(tile) {
-    if (tile === this.treasureTile) {
-      this.showResult("YOU WIN");
-    } else {
-      this.computerPickTile();
-      this.showResult("YOU LOST");
-    }
-
-    this.revealTiles();
-    this.removeEventListeners();
-  }
-
-  showResult(resultText) {
+  showResult(resultText, color) {
     const result = document.createElement("div");
     result.classList.add("result");
     result.textContent = resultText;
+    result.style.color = color;
     document.body.appendChild(result);
   }
 
@@ -82,7 +74,10 @@ export default class TreasureFinderGame {
   removeEventListeners() {
     const tiles = document.querySelectorAll(".tile");
     tiles.forEach((tile) => {
-      tile.removeEventListener("click", this.handleTileClick.bind(this));
+      tile.removeEventListener("click", () => {
+        console.log("Tile clicked");
+        this.handleTileClick(tile);
+      });
     });
   }
 }
