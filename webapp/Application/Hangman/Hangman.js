@@ -1,7 +1,7 @@
 import Application from "../Application.js";
 import HangmanGame from "../Hangman/HangmanGame.js";
 
-export default class Chess extends Application{
+export default class Hangman extends Application{
 
     init(){
         super.init();
@@ -31,13 +31,16 @@ export default class Chess extends Application{
         categories.lastChild.lastChild.textContent = 'Animals';
         categories.lastChild.lastChild.classList.add('category');
         categories.lastChild.lastChild.setAttribute('index',1);
+        categories.lastChild.lastChild.setAttribute('chosen', false);
         categories.lastChild.appendChild(document.createElement('button'));
         categories.lastChild.lastChild.textContent = 'Fruits';
         categories.lastChild.lastChild.classList.add('category');
         categories.lastChild.lastChild.setAttribute('index',2);
+        categories.lastChild.lastChild.setAttribute('chosen', false);
         categories.lastChild.appendChild(document.createElement('button'));
         categories.lastChild.lastChild.textContent = 'Cars';
         categories.lastChild.lastChild.classList.add('category');
         categories.lastChild.lastChild.setAttribute('index',3);
+        categories.lastChild.lastChild.setAttribute('chosen', false);
     }
 }

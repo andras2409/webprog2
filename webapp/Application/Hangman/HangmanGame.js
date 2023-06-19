@@ -8,7 +8,9 @@ export default class HangmanGame{
 
     Game(){
         const categories = document.querySelectorAll('.category');
+        const categoryContainer = document.querySelector('#option-container');
         const hangmanContainer = document.querySelector('#hangman-container');
+        const statusText = document.querySelector('h3');
         const canvas = new HangmanCanvas();
 
         let options = {
@@ -43,7 +45,9 @@ export default class HangmanGame{
         let chosenWord = "";
         let chosenWordArray = [];
         let clickedLetters = [];
-        let wrongChoices = 0;
+        let maxError = 6;
+        let errornumber = 0;
+        let correct = false;
 
         console.log('initGame started');
         initGame();
@@ -55,14 +59,12 @@ export default class HangmanGame{
         function categoryClicked(){
             chosenCategory = this.getAttribute('index');
             categoryChosen = true;
-            this.setAttribute('chosen',true);
+            this.setAttribute('chosen', true);
             
-            if(categoryChosen === true){
+            if(categoryChosen == true){
                 displayLetters();
                 displayLines();
             }
-
-            const statusText = document.querySelector('h3');
             statusText.remove();
 
             disableButtons();
@@ -84,8 +86,6 @@ export default class HangmanGame{
                     break;
             }
             chosenWordArray = chosenWord.toUpperCase().split("");
-            console.log(chosenWordArray);
-
             displayDashes();
         }
 
@@ -112,7 +112,6 @@ export default class HangmanGame{
             const letterContainer = document.createElement('div');
             hangmanContainer.appendChild(letterContainer);
             letterContainer.id = 'letter-container';
-
             for(let i = 65; i < 91; i++){
                 var letter = String.fromCharCode(i);
                 hangmanContainer.lastChild.appendChild(document.createElement('button'));
@@ -126,20 +125,51 @@ export default class HangmanGame{
             this.classList.add('.disabled');
             this.disabled = true;
             clickedLetters.push(this.textContent);
-
-            console.log(clickedLetters);
             checkIfCorrect(this.textContent);
         }
         
         function checkIfCorrect(letter){
             const spans = document.querySelectorAll('.dash');
-            const counter = 0;
+            correct = false;
             for(let i = 0; i < chosenWordArray.length; i++){
                 if(letter == chosenWordArray[i]){
                     spans[i].textContent = letter;
+                    correct = true;
                 }
             }
-            updateCanvas(wrongChoices);
+            if(!correct){
+                errornumber++;
+                updateCanvas(errornumber);
+                if(errornumber == maxError){
+                    gameOver();
+                }
+            }
+        }
+
+        function gameOver(){
+            categoryContainer.remove();
+            const letters = document.querySelector('#letter-container');
+            letters.remove();
+            const dashes = document.querySelector('#solution-container');
+            dashes.remove();
+            const endCenvas = document.querySelector('#canvas');
+            endCenvas.remove();
+
+            hangmanContainer.appendChild(document.createElement('div'));
+            hangmanContainer.lastChild.id = 'game-over-div';
+            hangmanContainer.lastChild.appendChild(document.createElement('div'));
+            hangmanContainer.lastChild.lastChild.textContent = 'Game Over!';
+            hangmanContainer.lastChild.lastChild.id = 'end-msg-div';
+            hangmanContainer.lastChild.appendChild(document.createElement('div'));
+            hangmanContainer.lastChild.lastChild.id = 'chosenWord-div';
+            hangmanContainer.lastChild.lastChild.textContent = `Your word was ${chosenWord.toUpperCase()}`;
+
+            const hangmanRestartBtn = document.createElement('button');
+            hangmanContainer.lastChild.appendChild(hangmanRestartBtn);
+            hangmanContainer.lastChild.lastChild.id = 'hangman-restart-btn';
+            hangmanContainer.lastChild.lastChild.textContent = 'RESTART';
+
+            hangmanRestartBtn.addEventListener('click', restartHangman);
         }
 
         function updateCanvas(wrongChoices){
@@ -163,6 +193,26 @@ export default class HangmanGame{
             const solutionContainer = document.createElement('div');
             hangmanContainer.appendChild(solutionContainer);
             solutionContainer.id = 'solution-container';
+        }
+
+        function restartHangman(){
+            chosenCategory = "";
+            categoryChosen = false;
+            chosenWord = "";
+            chosenWordArray = [];
+            clickedLetters = [];
+            errornumber = 0;
+            correct = false;
+
+            const gameOverDiv = document.querySelector('#game-over-div');
+            gameOverDiv.remove();
+            
+            hangmanContainer.appendChild(categoryContainer);
+            categories.forEach(category => {
+                category.removeAttribute('disabled');
+                category.setAttribute('chosen', false);
+                category.addEventListener('click', categoryClicked);
+            });
         }
     }
 }

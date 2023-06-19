@@ -1,6 +1,4 @@
 export default class HangmanCanvas {
-    constructor() {
-    }
   
     initCanvas() {
         const hangmanContainer = document.querySelector('#hangman-container');
