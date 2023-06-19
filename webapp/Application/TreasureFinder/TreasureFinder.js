@@ -17,12 +17,14 @@ class TreasureFinder extends Application {
 
     for (let row = 0; row < 10; row++) {
       const tr = document.createElement("tr");
+      const rowTiles = [];
 
       for (let col = 0; col < 10; col++) {
         const td = document.createElement("td");
         td.classList.add("tile");
         td.style.backgroundColor = "yellow";
         tr.appendChild(td);
+        rowTiles.push(td);
       }
 
       table.appendChild(tr);
