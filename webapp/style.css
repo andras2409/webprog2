@@ -313,6 +313,14 @@ body{
     cursor: pointer;
   }
   
+  .tile.brown {
+    background-color: brown;
+  }
+  
+  .tile.red {
+    background-color: red;
+  }
+
   /*rps css*/
   #rps-div{
     display:flex;
