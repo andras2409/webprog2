@@ -320,3 +320,22 @@ body{
   .tile.red {
     background-color: red;
   }
+
+
+
+  /*rps css*/
+  #rps-div{
+    display:flex;
+    flex-direction: column;
+  }
+
+  #rps-text{
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+  }
+
+  #rps-btn{
+    display: flex;
+    justify-content: space-evenly;
+  }

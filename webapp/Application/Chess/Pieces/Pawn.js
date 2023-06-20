@@ -99,54 +99,6 @@ export default class Pawn extends Pieces{
         }
     }
 
-    isCheck(matrix,cells){
-        let b=false;
-        const wb = [this.x-1,this.y];
-        const wt = [this.x-2,this.y];
-        const wl = [this.x-1,this.y-1];
-        const wr = [this.x-1,this.y+1];
-        const bb = [this.x+1,this.y];
-        const bt = [this.x+2,this.y];
-        const bl = [this.x+1,this.y-1];
-        const br = [this.x+1,this.y+1];
-        let wbh = false;
-        let bbh = false;
-        if(this.id.includes('White')){
-            for(let i=cells.length-1;i>0;i--){
-                if(cells[i].children.length==0){
-                    
-                }
-                else if(cells[i].children[0].getAttribute('id').includes('Black')){
-                    if((cells[i].getAttribute('x')==wl[0] || cells[i].getAttribute('x')==wr[0]) && (cells[i].getAttribute('y')==wl[1] || cells[i].getAttribute('y')==wr[1])){
-                        if(cells[i].children[0].getAttribute('id').includes('King')){
-                            b=true;
-                        }
-                    }
-                }
-            }
-        }
-        else if(this.id.includes('Black')){
-            cells.forEach(cell => {
-                if(cell.children.length==0){
-                    
-                }
-                else if(cell.children[0].getAttribute('id').includes('White')){
-                    if((cell.getAttribute('x')==bl[0]) && (cell.getAttribute('y')==bl[1])){
-                        if(cell.children[0].getAttribute('id').includes('King')){
-                            b=true;
-                        }
-                    }
-                    else if(cell.getAttribute('x')==br[0] && cell.getAttribute('y')==br[1]){
-                        if(cell.children[0].getAttribute('id').includes('King')){
-                            b=true;
-                        }
-                    }
-                }
-            });
-        }
-        return b;
-    }
-
     move(x,y,cells,matrix){
         console.log(`Move ${this.id} to ${x}, ${y}`);
         x=Number(x);

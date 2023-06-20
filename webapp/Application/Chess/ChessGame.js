@@ -93,7 +93,6 @@ export default class ChessGame{
                         this.selectedID = "None";
                         this.getSelected(this.selectedID);
                     }
-                    
                     this.highligth();
                 }
             }
@@ -109,12 +108,6 @@ export default class ChessGame{
         if((this.selected instanceof Pieces) && !(this.selected instanceof Placeholder)){
             if(evt.currentTarget.classList.contains('highligthed')){
                 this.matrix=this.selected.move(evt.currentTarget.getAttribute('x'),evt.currentTarget.getAttribute('y'),this.cells,this.matrix);
-                if(this.selected.id.includes('White')){
-                    this.blackCheck=this.selected.isCheck(this.matrix,this.cells);
-                }
-                else if(this.selected.id.includes('Black')){
-                    this.whiteCheck=this.selected.isCheck(this.matrix,this.cells);
-                }
                 if(this.player=="White"){
                     this.player="Black";
                 }
@@ -127,23 +120,6 @@ export default class ChessGame{
                 this.strike=true;
                 this.blackCheck=false;
                 this.whiteCheck=false;
-                this.cells.forEach(cell => {
-                    if(cell.children.length>0){
-                        if(this.selected.id.includes('White')){
-                            if(cell.children[0].isCheck(this.matrix,this.cells)){
-                                this.blackCheck=true;
-                            }
-                        }
-                        else if(this.selected.id.includes('Black')){
-                            if(cell.children.isCheck(this.matrix,this.cells)){
-                                this.whiteCheck=true;
-                            }
-                            
-                        }
-                    }
-                    
-                })
-                
                 if(this.player=="White"){
                     this.player="Black";
                 }
