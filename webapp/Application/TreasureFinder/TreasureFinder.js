@@ -29,7 +29,7 @@ export default class TreasureFinder extends Application {
       const row = document.createElement('tr');
       for (let j = 0; j < 10; j++) {
         const tile = document.createElement('td');
-        tile.classList.add('tile'); // Add the 'tile' class
+        tile.classList.add('tile');
         tile.addEventListener('click', this.clickHandler.bind(this, i, j));
         row.appendChild(tile);
       }
@@ -43,11 +43,11 @@ export default class TreasureFinder extends Application {
     }
 
     const tile = this.gameTable.rows[row].cells[col];
-    tile.classList.add('brown'); // Add the 'brown' class
+    tile.classList.add('brown');
     this.clickedTiles.push({ row: row, col: col });
 
     if (row === this.treasureRow && col === this.treasureCol) {
-      tile.classList.add('red'); // Add the 'red' class
+      tile.classList.add('red');
       tile.classList.add('green');
       this.displayResult('YOU WIN!', 'green');
       this.gameOver = true;
@@ -77,11 +77,11 @@ export default class TreasureFinder extends Application {
     } while (this.isTileClicked(computerRow, computerCol));
 
     const tile = this.gameTable.rows[computerRow].cells[computerCol];
-    tile.classList.add('brown'); // Add the 'brown' class
+    tile.classList.add('brown');
     this.clickedTiles.push({ row: computerRow, col: computerCol });
 
     if (computerRow === this.treasureRow && computerCol === this.treasureCol) {
-      tile.classList.add('red'); // Add the 'red' class
+      tile.classList.add('red');
       this.displayResult('YOU LOST!', 'red');
       this.gameOver = true;
     }
@@ -90,6 +90,6 @@ export default class TreasureFinder extends Application {
   displayResult(text,color) {
     const resultText = document.getElementById('resultText');
     resultText.textContent = text;
-    resultText.style.color = color; // Set the color of the result text
+    resultText.style.color = color;
   }
 }
