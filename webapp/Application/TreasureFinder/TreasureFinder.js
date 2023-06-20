@@ -13,9 +13,6 @@ export default class TreasureFinder extends Application {
 
   initDOM() {
     const gameContainer = document.getElementById('app');
-    const h1 = document.createElement('h1');
-    h1.textContent = 'Treasure Finding Game';
-    gameContainer.appendChild(h1);
 
     this.gameTable = document.createElement('table');
     this.gameTable.id = 'gameTable';
@@ -51,7 +48,8 @@ export default class TreasureFinder extends Application {
 
     if (row === this.treasureRow && col === this.treasureCol) {
       tile.classList.add('red'); // Add the 'red' class
-      this.displayResult('YOU WIN!');
+      tile.classList.add('green');
+      this.displayResult('YOU WIN!', 'green');
       this.gameOver = true;
     } else {
       this.computerTurn();
@@ -84,13 +82,14 @@ export default class TreasureFinder extends Application {
 
     if (computerRow === this.treasureRow && computerCol === this.treasureCol) {
       tile.classList.add('red'); // Add the 'red' class
-      this.displayResult('YOU LOST!');
+      this.displayResult('YOU LOST!', 'red');
       this.gameOver = true;
     }
   }
 
-  displayResult(text) {
+  displayResult(text,color) {
     const resultText = document.getElementById('resultText');
     resultText.textContent = text;
+    resultText.style.color = color; // Set the color of the result text
   }
 }
