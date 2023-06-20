@@ -9,41 +9,28 @@ export default class TreasureFinder extends Application {
 
   init() {
     this.initDOM();
-    this.createGameTable();
   }
 
   initDOM() {
-    const appElement = document.getElementById("app");
-    
-    const table = document.createElement("table");
-    table.classList.add("treasure-grid");
+    const gameContainer = document.getElementById('app');
+    const h1 = document.createElement('h1');
+    h1.textContent = 'Treasure Finding Game';
+    gameContainer.appendChild(h1);
 
-    for (let row = 0; row < 10; row++) {
-      const tr = document.createElement("tr");
-      const rowTiles = [];
+    this.gameTable = document.createElement('table');
+    this.gameTable.id = 'gameTable';
+    gameContainer.appendChild(this.gameTable);
 
-      for (let col = 0; col < 10; col++) {
-        const td = document.createElement("td");
-        td.classList.add("tile");
-        td.style.backgroundColor = "yellow";
-        td.addEventListener("click", () => {
-          console.log("Tile clicked");
-          this.game.handleTileClick(td);
-        });
-        tr.appendChild(td);
-        rowTiles.push(td);
-      }
-
-      table.appendChild(tr);
-    }
-
-    appElement.appendChild(table);
+    const resultText = document.createElement('p');
+    resultText.id = 'resultText';
+    gameContainer.appendChild(resultText);
+    this.createGameTable();
   }
 
   createGameTable() {
-    for (let i = 0; i < this.tableSize; i++) {
+    for (let i = 0; i < 10; i++) {
       const row = document.createElement('tr');
-      for (let j = 0; j < this.tableSize; j++) {
+      for (let j = 0; j < 10; j++) {
         const tile = document.createElement('td');
         tile.classList.add('tile'); // Add the 'tile' class
         tile.addEventListener('click', this.clickHandler.bind(this, i, j));
