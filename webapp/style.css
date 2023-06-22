@@ -331,9 +331,16 @@ body{
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 20px;
+    color:#fff;
   }
 
   #rps-btn{
     display: flex;
     justify-content: space-evenly;
+  }
+
+  .rps-btns{
+    border-radius: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
   }

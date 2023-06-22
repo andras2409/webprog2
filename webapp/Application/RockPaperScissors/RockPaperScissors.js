@@ -23,6 +23,7 @@ initGame() {
     for(let i=0;i<3;i++){
         console.log(this);
         var button = document.createElement("button");
+        button.classList.add('rps-btns');
         button.id=choices[i];
         button.textContent = choices[i];
         btndiv.appendChild(button);
